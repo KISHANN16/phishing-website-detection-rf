@@ -23,66 +23,18 @@ st.set_page_config(
 )
 
 # ─── CSS ───────────────────────────────────────────────────────────────────────
-st.markdown("""
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  html, body, [class*="css"] { font-family:'Inter',sans-serif; }
-  .stApp { background:#0f172a; color:#f1f5f9; }
-
-  /* HERO */
-  .hero {
-    background:linear-gradient(135deg,#1e293b,#0f172a);
-    border:1px solid #334155; border-radius:14px;
-    padding:22px 32px; margin-bottom:26px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
-  .hero-title { font-size:1.9rem; font-weight:800; color:#f8fafc;
-                letter-spacing:-0.02em; margin-bottom:4px; }
-  .hero-sub   { color:#94a3b8; font-size:0.92rem; }
-  .online-tag {
-    background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.35);
-    color:#34d399; padding:5px 14px; border-radius:20px;
-    font-size:.78rem; font-weight:700; letter-spacing:.05em;
-  }
-
-  /* STAT CARDS */
-  .stat-row { display:flex; gap:14px; margin-bottom:24px; }
-  .stat-card {
-    flex:1; background:#1e293b; border:1px solid #334155;
-    border-radius:12px; padding:16px; text-align:center;
-  }
-  .stat-val { font-size:1.65rem; font-weight:700; color:#38bdf8;
-              font-family:'JetBrains Mono',monospace; }
-  .stat-lbl { font-size:.74rem; color:#94a3b8; text-transform:uppercase;
-              letter-spacing:.07em; margin-top:4px; font-weight:600; }
-
-  /* BADGES */
-  .safe-badge {
-    background:#064e3b; border:1.5px solid #059669;
-    color:#d1fae5; padding:13px 22px; border-radius:9px;
-    font-size:1.15rem; font-weight:800; display:inline-block;
-    letter-spacing:.01em;
-  }
-  .phish-badge {
-    background:#7f1d1d; border:1.5px solid #dc2626;
-    color:#fee2e2; padding:13px 22px; border-radius:9px;
-    font-size:1.15rem; font-weight:800; display:inline-block;
-    letter-spacing:.01em;
-  }
-
-  /* SIDEBAR */
-  section[data-testid="stSidebar"] {
-    background:#080d1a; border-right:1px solid #1e293b;
-  }
-
-  /* FOOTER */
-  .footer {
-    border-top:1px solid #1e293b; margin-top:40px;
-    padding:14px 0; color:#475569; font-size:.82rem;
-    display:flex; justify-content:space-between;
-  }
-</style>
-""", unsafe_allow_html=True)
+st.markdown("""<style>
+  html, body, [class*="css"] { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+  .stApp { background: #0b1120; color: #f1f5f9; }
+  .hero { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 12px; padding: 20px 28px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .hero-title { font-size: 1.8rem; font-weight: 800; color: #f8fafc; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .hero-sub { color: #94a3b8; font-size: 0.9rem; }
+  .online-tag { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.35); color: #34d399; padding: 5px 14px; border-radius: 20px; font-size: .78rem; font-weight: 700; letter-spacing: .05em; }
+  .safe-badge { background: #064e3b; border: 1.5px solid #059669; color: #d1fae5; padding: 12px 20px; border-radius: 8px; font-size: 1.1rem; font-weight: 800; display: inline-block; }
+  .phish-badge { background: #7f1d1d; border: 1.5px solid #dc2626; color: #fee2e2; padding: 12px 20px; border-radius: 8px; font-size: 1.1rem; font-weight: 800; display: inline-block; }
+  section[data-testid="stSidebar"] { background: #080d1a; border-right: 1px solid #1e293b; }
+  .footer { border-top: 1px solid #1e293b; margin-top: 40px; padding: 14px 0; color: #475569; font-size: .82rem; display: flex; justify-content: space-between; }
+</style>""", unsafe_allow_html=True)
 
 # ─── HELPERS ───────────────────────────────────────────────────────────────────
 DB_FILE    = "phishing_database.db"
@@ -194,25 +146,23 @@ st.sidebar.markdown("""
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 📊 Performance Metrics")
-for label, val in [("Accuracy","97.11%"),("Precision","0.9751"),
-                    ("Recall","0.9592"),("F1-Score","0.9671")]:
-    st.sidebar.markdown(f"""
-    <div class="stat-card" style="margin-bottom:8px;">
-      <div class="stat-val">{val}</div>
-      <div class="stat-lbl">{label}</div>
-    </div>""", unsafe_allow_html=True)
+sm1, sm2 = st.sidebar.columns(2)
+sm1.metric("Accuracy", "97.11%")
+sm2.metric("Precision", "0.9751")
+sm3, sm4 = st.sidebar.columns(2)
+sm3.metric("Recall", "0.9592")
+sm4.metric("F1-Score", "0.9671")
 
 # ─── STAT ROW ──────────────────────────────────────────────────────────────────
 total, legit_n, phish_n = get_db_stats()
 pct_l = legit_n/total*100; pct_p = phish_n/total*100
-st.markdown(f"""
-<div class="stat-row">
-  <div class="stat-card"><div class="stat-val">{total:,}</div><div class="stat-lbl">Total Records (SQLite DB)</div></div>
-  <div class="stat-card"><div class="stat-val">{legit_n:,}</div><div class="stat-lbl">Legitimate Websites ({pct_l:.1f}%)</div></div>
-  <div class="stat-card"><div class="stat-val">{phish_n:,}</div><div class="stat-lbl">Phishing Websites ({pct_p:.1f}%)</div></div>
-  <div class="stat-card"><div class="stat-val">30</div><div class="stat-lbl">Security Features</div></div>
-</div>
-""", unsafe_allow_html=True)
+
+st_c1, st_c2, st_c3, st_c4 = st.columns(4)
+st_c1.metric("Total Records", f"{total:,}", "SQLite DB")
+st_c2.metric("Legitimate Websites", f"{legit_n:,}", f"{pct_l:.1f}%")
+st_c3.metric("Phishing Websites", f"{phish_n:,}", f"{pct_p:.1f}%")
+st_c4.metric("Security Features", "30", "UCI Attributes")
+
 
 # ─── TABS ──────────────────────────────────────────────────────────────────────
 t1, t2, t3, t4 = st.tabs([
