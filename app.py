@@ -227,6 +227,16 @@ with t2:
     st.markdown("### 🗄️ Real UCI Dataset — SQLite Database Explorer")
     st.info(f"**Database File:** `phishing_database.db`  |  **Table:** `phishing_websites`  |  **Total Records:** {total:,}")
 
+    col_btn1, col_btn2, col_btn3 = st.columns(3)
+    with col_btn1:
+        st.link_button("🌐 Open Kaggle Dataset (11k records)", "https://www.kaggle.com/datasets/eswarchandt/phishing-website-detector", use_container_width=True)
+    with col_btn2:
+        st.link_button("📂 View on GitHub (phishing_dataset_real.csv)", "https://github.com/KISHANN16/phishing-website-detection-rf/blob/main/phishing_dataset_real.csv", use_container_width=True)
+    with col_btn3:
+        if os.path.exists("phishing_dataset_real.csv"):
+            with open("phishing_dataset_real.csv", "rb") as f_csv:
+                st.download_button("📥 Download Full CSV", f_csv, file_name="phishing_dataset_real.csv", mime="text/csv", use_container_width=True)
+
     c1, c2, c3 = st.columns([2,1,1])
     with c1:
         search_id = st.text_input("Jump to Record ID:", placeholder="e.g. 1024")
@@ -303,19 +313,17 @@ with t3:
 
 # ── TAB 4 : About ─────────────────────────────────────────────────────────────
 with t4:
-    st.markdown("### ℹ️ About the Dataset & System")
+    st.markdown("### ℹ️ About the Dataset & Verified Sources")
     st.markdown("""
-#### Data Source
-| Parameter | Details |
-|---|---|
-| **Dataset Name** | Phishing Websites Dataset |
-| **Repository** | UCI Machine Learning Repository |
-| **Direct URL** | https://archive.ics.uci.edu/ml/datasets/phishing+websites |
-| **Kaggle Mirror** | https://www.kaggle.com/datasets/shashwatwork/phishing-dataset |
-| **Format** | ARFF (Attribute-Relation File Format) |
-| **Total Records** | 11,055 |
-| **Features** | 30 binary/ternary attributes |
-| **Target** | -1 = Phishing, 1 = Legitimate (converted: 1=Phishing, 0=Legit) |
+#### 🔗 Live Dataset Sources (11,055 Records):
+| Source | Description | Link |
+|---|---|---|
+| **Kaggle Dataset (11,055 rows)** | Eswar Chand — Phishing Website Detector | [🌐 Open on Kaggle](https://www.kaggle.com/datasets/eswarchandt/phishing-website-detector) |
+| **Kaggle Dataset Mirror** | Shashwat Tiwari — Web Page Phishing Dataset | [🌐 Open on Kaggle](https://www.kaggle.com/datasets/shashwatwork/web-page-phishing-detection-dataset) |
+| **UCI ML Repository (Official)** | Original Benchmark Dataset (ID #327) | [🏛️ Open UCI Repository](https://archive.ics.uci.edu/dataset/327/phishing+websites) |
+| **GitHub Repository CSV** | Full 11,055 records with labels in your repo | [📂 View CSV on GitHub](https://github.com/KISHANN16/phishing-website-detection-rf/blob/main/phishing_dataset_real.csv) |
+
+---
 
 #### Database Schema
 ```sql
