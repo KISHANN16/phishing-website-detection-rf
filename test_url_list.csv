@@ -1,0 +1,14 @@
+URL,Expected_Category,Description
+http://fake-lagin.com,PHISHING (1),Poster Demo Fake Login URL (Hyphen + Fake Keyword)
+http://192.168.1.1/login.php,PHISHING (1),Raw IP Address Login Page
+http://bit.ly/secure-verify-paypal,PHISHING (1),Shortened URL + Suspicious Keywords
+http://paypal-security-update.fake-domain.com,PHISHING (1),Subdomain Spoofing + Hyphens
+http://appleid.apple.com-verify-identity.info/login,PHISHING (1),Brand Name Impersonation
+http://bankofamerica-secure-login.net/update-info,PHISHING (1),Banking Phishing Pattern
+http://facebook-login-verify-account.org,PHISHING (1),Social Media Impersonation
+https://www.google.com,LEGITIMATE (0),Official Google Search Engine
+https://www.apple.com,LEGITIMATE (0),Official Apple Inc Website
+https://www.wikipedia.org,LEGITIMATE (0),Official Wikipedia Knowledge Base
+https://www.github.com,LEGITIMATE (0),Official GitHub Repository Platform
+https://www.amazon.com,LEGITIMATE (0),Official Amazon E-Commerce Site
+https://www.microsoft.com,LEGITIMATE (0),Official Microsoft Website

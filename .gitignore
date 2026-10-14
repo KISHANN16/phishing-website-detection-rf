@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+output/random_forest_phishing_model.joblib
+phishing_dataset.csv
+kaggle_phishing_dataset_with_urls.csv
+.DS_Store
+*.log
